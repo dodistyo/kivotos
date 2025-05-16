@@ -1,0 +1,33 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: envoy-gateway
+  namespace: platform
+spec:
+  interval: 24h
+  url: oci://docker.io/envoyproxy/gateway-helm
+  ref:
+    tag: v1.4.0
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: envoy-gateway
+  namespace: platform
+spec:
+  dependsOn:
+    - name: cilium
+      namespace: platform
+  interval: 30m
+  chart:
+    spec:
+      chart: eg
+      version: v1.4.0
+      sourceRef:
+        kind: OCIRepository
+        name: envoy-gateway
+        namespace: platform
+      interval: 12h
+  valuesFile:
+    - values.yaml

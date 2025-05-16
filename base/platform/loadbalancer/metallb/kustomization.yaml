@@ -1,0 +1,3 @@
+resources:
+  - emissary-crds.yaml
+  - chart.yaml
