@@ -29,5 +29,5 @@ spec:
         name: envoy-gateway
         namespace: platform
       interval: 12h
-  valuesFile:
-    - values.yaml
+      valuesFile:
+        - values.yaml
