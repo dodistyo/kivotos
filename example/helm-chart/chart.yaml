@@ -27,5 +27,5 @@ spec:
         name: <repo-name>
         namespace: platform
       interval: 12h
-  valuesFile:
-    - values.yaml
+      valuesFiles:
+        - values.yaml
