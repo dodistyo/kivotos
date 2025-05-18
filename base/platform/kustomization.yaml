@@ -3,3 +3,4 @@ resources:
   - network
   - loadbalancer
   - ingress
+  - gitops
