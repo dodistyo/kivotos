@@ -17,9 +17,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cilium
-      namespace: flux-system
-    - name: envoy-gateway
+    - name: platform
       namespace: flux-system
   targetNamespace: flux-system
   interval: 30m
