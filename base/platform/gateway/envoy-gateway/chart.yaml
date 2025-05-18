@@ -26,8 +26,6 @@ spec:
     name: envoy-gateway
     namespace: flux-system
   values:
-    service:
-      loadBalancerIP: 172.18.1.100
     deployment:
       envoyGateway:
         resources:
