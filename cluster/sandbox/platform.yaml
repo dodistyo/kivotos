@@ -33,4 +33,13 @@ spec:
   path: ./base/platform/setup
   prune: true
   wait: true
+  patches:
+    - target:
+        kind: IPAddressPool
+        name: ip-pool
+      patch: |
+        - op: replace
+          path: /spec/addresses
+          value:
+            - 172.18.1.0/24
 ---

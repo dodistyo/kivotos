@@ -1,2 +1,4 @@
 resources:
-  - envoy-gateway-setup.yaml
+  - cert-manager.yaml
+  - metallb.yaml
+  - envoy-gateway.yaml

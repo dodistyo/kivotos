@@ -2,6 +2,7 @@ resources:
   - namespace.yaml
   - network
   - loadbalancer
+  - cert-manager
   - ingress
   - gitops
   - metrics-server
