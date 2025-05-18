@@ -25,7 +25,7 @@ spec:
       chart: eg
       version: v1.4.0
       sourceRef:
-        kind: OCIRepository
+        kind: HelmRepository
         name: envoy-gateway
         namespace: platform
       interval: 12h
