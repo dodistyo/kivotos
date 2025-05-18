@@ -19,6 +19,8 @@ spec:
   dependsOn:
     - name: cilium
       namespace: flux-system
+    - name: metallb
+      namespace: flux-system
   interval: 30m
   targetNamespace: platform
   chartRef:
