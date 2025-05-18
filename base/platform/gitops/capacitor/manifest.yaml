@@ -16,9 +16,6 @@ metadata:
   name: capacitor
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: platform
-      namespace: flux-system
   targetNamespace: flux-system
   interval: 30m
   retryInterval: 1m
