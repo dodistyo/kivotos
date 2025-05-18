@@ -28,5 +28,13 @@ spec:
         name: cert-manager
         namespace: flux-system
       interval: 12h
-      valuesFiles:
-        - values.yaml
+  values:
+    crds:
+      enabled: true
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        cpu: 20m
+        memory: 64Mi
