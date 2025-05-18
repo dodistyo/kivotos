@@ -18,6 +18,7 @@ spec:
     - name: cilium
       namespace: flux-system
   interval: 30m
+  targetNamespace: platform
   chart:
     spec:
       chart: cert-manager
