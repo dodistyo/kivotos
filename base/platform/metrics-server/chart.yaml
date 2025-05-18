@@ -25,3 +25,6 @@ spec:
         name: metrics-server
         namespace: flux-system
       interval: 12h
+  values:
+    args:
+      - --kubelet-insecure-tls
