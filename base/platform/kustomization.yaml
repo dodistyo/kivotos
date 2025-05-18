@@ -4,3 +4,4 @@ resources:
   - loadbalancer
   - ingress
   - gitops
+  - metrics-server
