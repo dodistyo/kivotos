@@ -1,9 +1,0 @@
-image:
-  pullPolicy: IfNotPresent
-ipam:
-  mode: kubernetes
-hubble:
-  relay:
-    enabled: true 
-  ui:
-    enabled: true

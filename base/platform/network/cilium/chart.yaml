@@ -25,5 +25,13 @@ spec:
         name: cilium
         namespace: flux-system
       interval: 12h
-      valuesFiles:
-        - values.yaml
+  values:
+    image:
+      pullPolicy: IfNotPresent
+    ipam:
+      mode: kubernetes
+    hubble:
+      relay:
+        enabled: true 
+      ui:
+        enabled: true
