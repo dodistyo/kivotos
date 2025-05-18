@@ -15,6 +15,7 @@ metadata:
   namespace: platform
 spec:
   interval: 30m
+  targetNamespace: kube-system
   chart:
     spec:
       chart: cilium
@@ -22,7 +23,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cilium
-        namespace: kube-system
+        namespace: platform
       interval: 12h
       valuesFiles:
         - values.yaml
