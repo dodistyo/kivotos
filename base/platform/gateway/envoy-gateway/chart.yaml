@@ -16,6 +16,7 @@ metadata:
   name: envoy-gateway
   namespace: flux-system
 spec:
+  reconcileStrategy: Revision
   dependsOn:
     - name: cilium
       namespace: flux-system
