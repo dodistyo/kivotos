@@ -38,8 +38,3 @@ spec:
             memory: 64Mi
     hpa:
       enabled: true
-    config:
-      envoyGateway:
-        logging:
-          level:
-            default: debug
