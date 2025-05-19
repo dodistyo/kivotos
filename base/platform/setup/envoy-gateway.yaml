@@ -12,9 +12,6 @@ metadata:
   name: main-gateway
   namespace: platform
 spec:
-  addresses:
-    - type: IPAddress
-      value: 172.18.1.100
   gatewayClassName: eg
   listeners:
     - name: http
