@@ -16,7 +16,7 @@ spec:
       - name: echo-server
         image: ealen/echo-server
         ports:
-          - containerPort: 80
+          - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -26,9 +26,10 @@ spec:
   selector:
     app: ws-echo
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 8080
+      targetPort: 8080
+
 
 # To test:
-# kubectl port-forward svc/ws-echo 8081:80
+# kubectl port-forward svc/ws-echo 8081:8080
 # wscat -c ws://localhost:8081/ws

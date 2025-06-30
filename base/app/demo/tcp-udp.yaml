@@ -1,60 +1,57 @@
-# A Single Deployment for both TCP and UDP
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: multi-protocol-echo-deployment
+  name: dual-container-echo-deployment
   labels:
-    app: multi-protocol-echo
+    app: dual-container-echo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: multi-protocol-echo
+      app: dual-container-echo
   template:
     metadata:
       labels:
-        app: multi-protocol-echo
+        app: dual-container-echo
     spec:
       containers:
-      - name: multi-protocol-server
-        image: ealen/echo-server
-        # Define both TCP and UDP ports for the container
+      - name: tcp-echo-container
+        image: jmalloc/echo-server
         ports:
-        - name: tcp-port
+        - name: tcp
           containerPort: 8080
           protocol: TCP
-        - name: udp-port
+
+      - name: udp-echo-container
+        image: jmalloc/echo-server
+        args: ["--protocol=udp", "--port=8081"] # Tell this container to use UDP on a different port
+        ports:
+        - name: udp
           containerPort: 8081
           protocol: UDP
-        # Use environment variables to tell the image which ports to listen on
-        env:
-        - name: TCP_PORT
-          value: "8080"
-        - name: UDP_PORT
-          value: "8081"
 ---
-# A Single Service exposing both TCP and UDP ports
 apiVersion: v1
 kind: Service
 metadata:
-  name: multi-protocol-echo-service
+  name: dual-container-echo-service
 spec:
   selector:
-    app: multi-protocol-echo
+    app: dual-container-echo
   ports:
     - name: tcp
       protocol: TCP
       port: 8080
-      targetPort: tcp-port # Target the named port from the deployment
+      targetPort: 8080
     - name: udp
       protocol: UDP
       port: 8081
-      targetPort: udp-port # Target the named port from the deployment
+      targetPort: 8081
   type: ClusterIP
 
 # To test:
-# kubectl port-forward service/multi-protocol-echo-service 9090:8080
-# kubectl port-forward service/multi-protocol-echo-service 9091:8081
+# kubectl port-forward service/dual-container-echo-service 9090:8080
 # nc localhost 9090
-# nc -u localhost 9091
+# kubectl run -it --rm netcat-client --image=subfuzion/netcat -- /bin/sh
+# # Inside the netcat-client pod
+# nc -uzv dual-container-echo-service 8081
 
