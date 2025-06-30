@@ -49,7 +49,7 @@ spec:
   type: ClusterIP
 
 # To test:
-# kubectl run -it --rm netcat-client --image=subfuzion/netcat -- /bin/sh
+# kubectl debug -it netcat-client --image=subfuzion/netcat -- /bin/sh
 # # Inside the netcat-client pod
 # nc -v tcp-udp-service 8080
 # nc -u -v tcp-udp-service 8080
