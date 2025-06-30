@@ -17,10 +17,10 @@ spec:
       containers:
       - name: websocket-server
         # A simple, ready-to-use WebSocket echo server
-        image: jrie/simple-websocket-server
+        image: datacoda/websocket-echo
         ports:
         - name: ws-port
-          containerPort: 8000 # The default port for this image
+          containerPort: 8080 # The default port for this image
           protocol: TCP
 ---
 apiVersion: v1
@@ -34,10 +34,10 @@ spec:
     # We can expose it on the standard port 80
     - name: websocket
       protocol: TCP
-      port: 80
-      targetPort: 8000
+      port: 8080
+      targetPort: 8080
   type: ClusterIP
 
 # To test:
-# kubectl port-forward svc/ws-echo 8080:80
+# kubectl port-forward svc/ws-echo 8080:8080
 # wscat -c ws://localhost:8080
