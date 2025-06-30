@@ -1,35 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ws-echo
+  name: websocket-test-deployment
+  labels:
+    app: websocket-test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ws-echo
+      app: websocket-test
   template:
     metadata:
       labels:
-        app: ws-echo
+        app: websocket-test
     spec:
       containers:
-      - name: echo-server
-        image: ealen/echo-server
+      - name: websocket-server
+        # A simple, ready-to-use WebSocket echo server
+        image: jrie/simple-websocket-server
         ports:
-          - containerPort: 8080
+        - name: ws-port
+          containerPort: 8000 # The default port for this image
+          protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: ws-echo
+  name: websocket-test-service
 spec:
   selector:
-    app: ws-echo
+    app: websocket-test
   ports:
-    - port: 8080
-      targetPort: 8080
-
+    # We can expose it on the standard port 80
+    - name: websocket
+      protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP
 
 # To test:
-# kubectl port-forward svc/ws-echo 8081:8080
-# wscat -c ws://localhost:8081/ws
+# kubectl port-forward svc/ws-echo 8080:80
+# wscat -c ws://localhost:8080

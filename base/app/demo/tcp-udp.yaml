@@ -49,7 +49,6 @@ spec:
   type: ClusterIP
 
 # To test:
-# kubectl port-forward service/dual-container-echo-service 9090:8080
 # kubectl run -it --rm netcat-client --image=subfuzion/netcat -- /bin/sh
 # # Inside the netcat-client pod
 # nc -v tcp-udp-service 8080
