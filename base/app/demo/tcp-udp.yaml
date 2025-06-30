@@ -15,12 +15,12 @@ spec:
       containers:
       - name: socat
         image: alpine/socat
+        command: ["sh", "-c"]
         args:
-          - "sh"
-          - "-c"
           - |
-            socat TCP-LISTEN:9000,fork,reuseaddr EXEC:'/bin/cat',pty,stderr &
-            socat UDP-RECV:9000,fork UDP-SENDTO:127.0.0.1:9000
+            echo "Starting TCP and UDP echo servers";
+            socat TCP-LISTEN:9000,fork,reuseaddr,EXEC:/bin/cat,pty,stderr &
+            socat UDP-RECV:9000,fork,UDP-SENDTO:127.0.0.1:9000
         ports:
           - containerPort: 9000
             protocol: TCP
@@ -43,7 +43,6 @@ spec:
       name: udp
       protocol: UDP
       targetPort: 9000
-  type: ClusterIP
 
 # To test:
 # kubectl port-forward svc/tcp-udp-echo 9000:9000
