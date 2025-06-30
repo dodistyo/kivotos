@@ -58,6 +58,6 @@ spec:
 # To test:
 # kubectl run netcat-client --image=busybox --rm -it -- /bin/sh
 # # Inside the debug pod
-# nc -v multi-protocol-server 8080
-# nc -u -v multi-protocol-server 8080
+# nc -v tcp-udp-service 8080
+# nc -u -v tcp-udp-service 8081
 
