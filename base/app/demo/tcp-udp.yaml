@@ -1,52 +1,60 @@
+# A Single Deployment for both TCP and UDP
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tcp-udp-echo
+  name: multi-protocol-echo-deployment
+  labels:
+    app: multi-protocol-echo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tcp-udp-echo
+      app: multi-protocol-echo
   template:
     metadata:
       labels:
-        app: tcp-udp-echo
+        app: multi-protocol-echo
     spec:
       containers:
-      - name: socat
-        image: alpine/socat
-        command: ["sh", "-c"]
-        args:
-          - |
-            echo "Starting TCP and UDP echo servers";
-            socat TCP-LISTEN:9000,fork,reuseaddr,EXEC:/bin/cat,pty,stderr &
-            socat UDP-RECV:9000,fork,UDP-SENDTO:127.0.0.1:9000
+      - name: multi-protocol-server
+        image: ealen/echo-server
+        # Define both TCP and UDP ports for the container
         ports:
-          - containerPort: 9000
-            protocol: TCP
-          - containerPort: 9000
-            protocol: UDP
+        - name: tcp-port
+          containerPort: 8080
+          protocol: TCP
+        - name: udp-port
+          containerPort: 8081
+          protocol: UDP
+        # Use environment variables to tell the image which ports to listen on
+        env:
+        - name: TCP_PORT
+          value: "8080"
+        - name: UDP_PORT
+          value: "8081"
 ---
+# A Single Service exposing both TCP and UDP ports
 apiVersion: v1
 kind: Service
 metadata:
-  name: tcp-udp-echo
+  name: multi-protocol-echo-service
 spec:
   selector:
-    app: tcp-udp-echo
+    app: multi-protocol-echo
   ports:
-    - port: 9000
-      name: tcp
+    - name: tcp
       protocol: TCP
-      targetPort: 9000
-    - port: 9000
-      name: udp
+      port: 8080
+      targetPort: tcp-port # Target the named port from the deployment
+    - name: udp
       protocol: UDP
-      targetPort: 9000
+      port: 8081
+      targetPort: udp-port # Target the named port from the deployment
+  type: ClusterIP
 
 # To test:
-# kubectl port-forward svc/tcp-udp-echo 9000:9000
-# kubectl port-forward --address 0.0.0.0 svc/tcp-udp-echo 9000:9000/udp
-# nc localhost 9000
-# nc -uzv localhost 9000
+# kubectl port-forward service/multi-protocol-echo-service 9090:8080
+# kubectl port-forward service/multi-protocol-echo-service 9091:8081
+# nc localhost 9090
+# nc -u localhost 9091
 
