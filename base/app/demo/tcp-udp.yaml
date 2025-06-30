@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tcp-udp-echo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tcp-udp-echo
+  template:
+    metadata:
+      labels:
+        app: tcp-udp-echo
+    spec:
+      containers:
+      - name: socat
+        image: alpine/socat
+        args:
+          - "-v"
+          - "TCP-LISTEN:9000,fork,reuseaddr EXEC:'/bin/cat',pty,stderr"
+          - "UDP-RECV:9000,fork UDP-SENDTO:127.0.0.1:9000"
+        ports:
+          - containerPort: 9000
+            protocol: TCP
+          - containerPort: 9000
+            protocol: UDP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tcp-udp-echo
+spec:
+  selector:
+    app: tcp-udp-echo
+  ports:
+    - port: 9000
+      name: tcp
+      protocol: TCP
+      targetPort: 9000
+    - port: 9000
+      name: udp
+      protocol: UDP
+      targetPort: 9000
+  type: ClusterIP
+
+# To test:
+# kubectl port-forward svc/tcp-udp-echo 9000:9000
+# kubectl port-forward --address 0.0.0.0 svc/tcp-udp-echo 9000:9000/udp
+# nc localhost 9000
+# nc -uzv localhost 9000
+
