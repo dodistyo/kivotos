@@ -16,9 +16,11 @@ spec:
       - name: socat
         image: alpine/socat
         args:
-          - "-v"
-          - "TCP-LISTEN:9000,fork,reuseaddr EXEC:'/bin/cat',pty,stderr"
-          - "UDP-RECV:9000,fork UDP-SENDTO:127.0.0.1:9000"
+          - "sh"
+          - "-c"
+          - |
+            socat TCP-LISTEN:9000,fork,reuseaddr EXEC:'/bin/cat',pty,stderr &
+            socat UDP-RECV:9000,fork UDP-SENDTO:127.0.0.1:9000
         ports:
           - containerPort: 9000
             protocol: TCP
