@@ -40,6 +40,14 @@ spec:
         - kind: TCPRoute
         namespaces:
           from: All
+    - name: udp
+      protocol: UDP
+      port: 8081
+      allowedRoutes:
+        kinds:
+        - kind: UDPRoute
+        namespaces:
+          from: All
     - name: grpc
       protocol: HTTPS
       port: 50051

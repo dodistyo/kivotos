@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tcp-deployment
+  name: tcp-udp-deployment
   labels:
-    app: tcp
+    app: tcp-udp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tcp
+      app: tcp-udp
   template:
     metadata:
       labels:
-        app: tcp
+        app: tcp-udp
     spec:
       containers:
       - name: tcp-container
@@ -25,24 +25,39 @@ spec:
         - name: tcp
           containerPort: 8080
           protocol: TCP
+
+      - name: udp-container
+        image: busybox
+        # This command runs a simple UDP listener on port 8081
+        command: ["/bin/sh", "-c"]
+        args:
+        - while true; do echo "UDP-OK" | nc -l -u -p 8081; done
+        ports:
+        - name: udp
+          containerPort: 8081
+          protocol: UDP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tcp-service
+  name: tcp-udp-service
 spec:
   selector:
-    app: tcp
+    app: tcp-udp
   ports:
     - name: tcp
       protocol: TCP
       port: 8080
       targetPort: 8080
+    - name: udp
+      protocol: UDP
+      port: 8081
+      targetPort: 8081
   type: ClusterIP
 
 # To test:
 # kubectl run netcat-client --image=busybox --rm -it -- /bin/sh
 # # Inside the debug pod
-# nc -v tcp-service 8080
-# nc -u -v tcp-service 8081
+# nc -v tcp-udp-service 8080
+# nc -u -v tcp-udp-service 8081
 
