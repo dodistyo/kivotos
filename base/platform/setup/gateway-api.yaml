@@ -16,7 +16,6 @@ spec:
   listeners:
     - name: http
       protocol: HTTP
-      hostname: "*"
       port: 80
       allowedRoutes:
         namespaces:
