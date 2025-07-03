@@ -87,4 +87,4 @@ spec:
   - backendRefs:
     - name: grpc-hello-service
       namespace: demo
-      port: 80
+      port: 50051
