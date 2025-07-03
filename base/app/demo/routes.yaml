@@ -21,7 +21,7 @@ metadata:
   namespace: demo
 spec:
   parentRefs:
-  - name: redirect-gateway
+  - name: main-gateway
     sectionName: http
     namespace: platform
   hostnames:
@@ -36,7 +36,7 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: http-server-route
+  name: https-server-route
   namespace: demo
 spec:
   parentRefs:
