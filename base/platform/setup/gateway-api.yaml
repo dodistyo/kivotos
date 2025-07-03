@@ -20,13 +20,13 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    # - name: https
-    #   protocol: HTTPS
-    #   port: 443
-    #   tls:
-    #     mode: SIMPLE
-    #     certificateRefs:
-    #       - kind: Secret
-    #         name: eg-tls-secret
-    #         group: ""
+    - name: https
+      protocol: HTTPS
+      port: 443
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: selfsigned-certs
+            group: ""
 
