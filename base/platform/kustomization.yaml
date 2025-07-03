@@ -3,6 +3,6 @@ resources:
   - network
   - loadbalancer
   - cert-manager
-  - gateway
+  - gateway-api
   - gitops
   - metrics-server
