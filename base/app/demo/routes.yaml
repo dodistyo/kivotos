@@ -8,7 +8,11 @@ spec:
   hostnames:
   - "app.me"
   rules:
-  - backendRefs:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /http
+    backendRefs:
     - name: http-echo
       namespace: demo
       port: 80
