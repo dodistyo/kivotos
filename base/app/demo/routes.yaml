@@ -5,6 +5,7 @@ metadata:
 spec:
   parentRefs:
   - name: main-gateway
+    namespace: platform
   hostnames:
   - "app.me"
   rules:
