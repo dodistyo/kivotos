@@ -23,10 +23,34 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
           - kind: Secret
             name: selfsigned-certs
             group: ""
+    - name: tcp
+      protocol: TCP
+      port: 8080
+      allowedRoutes:
+        kinds:
+        - kind: TCPRoute
+        namespaces:
+          from: All
+    - name: grpc
+      protocol: HTTPS
+      port: 50051
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: selfsigned-certs
+            group: ""
+---
 

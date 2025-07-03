@@ -54,3 +54,37 @@ spec:
     - name: http-echo
       namespace: demo
       port: 80
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  name: tcp-app-route
+  namespace: demo
+spec:
+  parentRefs:
+  - name: main-gateway
+    namespace: platform
+    sectionName: tcp
+  rules:
+  - backendRefs:
+    - name: tcp-service
+      namespace: demo
+      port: 8080
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: grpc-route
+  namespace: demo
+spec:
+  parentRefs:
+  - name: main-gateway
+    namespace: platform
+    sectionName: grpc
+  hostnames:
+  - "app.me"
+  rules:
+  - backendRefs:
+    - name: grpc-hello-service
+      namespace: demo
+      port: 80

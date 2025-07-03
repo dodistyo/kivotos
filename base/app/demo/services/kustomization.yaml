@@ -1,7 +1,6 @@
 namespace: demo
 resources:
   - namespace.yaml
-  - tcp-udp.yaml
+  - tcp.yaml
   - http.yaml
-  - websocket.yaml
   - grpc.yaml
