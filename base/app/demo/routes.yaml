@@ -29,7 +29,7 @@ spec:
   - matches:
     - path:
         type: PathPrefix
-        value: /http
+        value: /http-echo
     backendRefs:
     - name: http-echo
       namespace: demo
