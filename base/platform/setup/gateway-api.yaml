@@ -30,7 +30,7 @@ spec:
         mode: Terminate
         certificateRefs:
           - kind: Secret
-            name: selfsigned-certs
+            name: selfsigned-tls
             group: ""
     - name: tcp
       protocol: TCP
