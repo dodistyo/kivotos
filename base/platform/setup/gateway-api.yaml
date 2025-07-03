@@ -1,7 +1,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
-  name: eg
+  name: envoy-gateway
   namespace: platform
 spec:
   controllerName: gateway.envoyproxy.io/gatewayclass-controller
@@ -12,7 +12,7 @@ metadata:
   name: main-gateway
   namespace: platform
 spec:
-  gatewayClassName: eg
+  gatewayClassName: envoy-gateway
   listeners:
     - name: http
       protocol: HTTP
