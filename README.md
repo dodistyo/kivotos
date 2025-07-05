@@ -21,12 +21,12 @@ This repository contains the Kubernetes platform configuration for the Kivotos p
 
    ```sh
    flux bootstrap github \                               
-  --token-auth \
-  --owner=dodistyo \
-  --repository=kivotos \
-  --branch=main \
-  --path=cluster/sandbox \
-  --personal
+   --token-auth \
+   --owner=dodistyo \
+   --repository=kivotos \
+   --branch=main \
+   --path=cluster/sandbox \
+   --personal
    ```
 
 3. **Customize Your Deployment**  
