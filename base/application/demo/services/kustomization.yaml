@@ -1,0 +1,6 @@
+namespace: demo
+resources:
+  - namespace.yaml
+  - tcp-udp.yaml
+  - http.yaml
+  - grpc.yaml

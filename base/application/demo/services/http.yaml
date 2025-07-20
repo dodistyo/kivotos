@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-echo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: http-echo
+  template:
+    metadata:
+      labels:
+        app: http-echo
+    spec:
+      containers:
+      - name: http-echo
+        image: hashicorp/http-echo
+        args:
+          - "-listen=:8080"
+          - "-text=Hello from $(POD_NAME)"
+        ports:
+          - containerPort: 8080
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: http-echo
+spec:
+  selector:
+    app: http-echo
+  ports:
+    - port: 80
+      targetPort: 8080
+      
+# To test:
+# kubectl port-forward svc/http-echo 8080:80
+# curl http://localhost:8080
