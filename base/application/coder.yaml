@@ -48,7 +48,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: postgresql
+    - name: coder-postgresql
       namespace: flux-system
   interval: 30m
   targetNamespace: coder
