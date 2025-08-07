@@ -126,8 +126,8 @@ spec:
   - matches:
     - path:
         type: PathPrefix
-        value: /http-echo
+        value: /
     backendRefs:
-    - name: http-echo
+    - name: coder
       namespace: coder
       port: 80
