@@ -34,7 +34,13 @@ spec:
         name: bitnami
         namespace: flux-system
       interval: 12h
-  values: {}
+  values:
+    global:
+      postgresql:
+        postgresqlDatabase: coder
+        postgresqlUsername: coder
+        postgresqlPassword: changeme
+    fullNameOverride: coder-postgresql
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -56,4 +62,10 @@ spec:
         name: coder
         namespace: flux-system
       interval: 12h
-  values: {}
+  values:
+    coder:
+      env:
+      - name: CODER_PG_CONNECTION_URL
+        value: "postgresql://coder:changeme@coder-postgresql:5432/coder?sslmode=disable"
+      - name: CODER_AGENT_START_TIMEOUT
+        value: "1800s"
