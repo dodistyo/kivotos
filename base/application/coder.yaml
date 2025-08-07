@@ -67,6 +67,9 @@ spec:
       interval: 12h
   values:
     coder:
+      service:
+        enable: true
+        type: ClusterIP
       env:
       - name: CODER_PG_CONNECTION_URL
         value: "postgresql://coder:changeme@coder-postgresql:5432/coder?sslmode=disable"
