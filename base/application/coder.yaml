@@ -36,9 +36,11 @@ spec:
   values:
     global:
       postgresql:
-        postgresqlDatabase: coder
-        postgresqlUsername: coder
-        postgresqlPassword: changeme
+        auth:
+          postgresPassword: changeme
+          username: coder
+          password: changeme
+          database: coder
     fullnameOverride: coder-postgresql
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
