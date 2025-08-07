@@ -27,6 +27,8 @@ metadata:
 spec:
   interval: 30m
   targetNamespace: coder
+  install:
+    createNamespace: true
   chartRef:
     kind: OCIRepository
     name: postgresql-bitnami
@@ -50,6 +52,8 @@ spec:
       namespace: flux-system
   interval: 30m
   targetNamespace: coder
+  install:
+    createNamespace: true
   chart:
     spec:
       chart: coder
