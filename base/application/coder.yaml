@@ -11,11 +11,11 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: envoy-gateway
+  name: postgresql-bitnami
   namespace: flux-system
 spec:
   interval: 24h
-  url: oci://registry-1.docker.io/bitnamicharts
+  url: oci://registry-1.docker.io/bitnamicharts/postgresql
   ref:
     semver: "^16.7.21"
 ---
@@ -29,7 +29,7 @@ spec:
   targetNamespace: coder
   chartRef:
     kind: OCIRepository
-    name: envoy-gateway
+    name: postgresql-bitnami
     namespace: flux-system
   values:
     global:
