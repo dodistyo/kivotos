@@ -21,6 +21,8 @@ spec:
   chart:
     spec:
       targetNamespace: <target-namespace>
+      install:
+        createNamespace: true
       chart: <chart-name>
       version: <chart-version>
       sourceRef:
