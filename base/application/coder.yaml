@@ -39,7 +39,7 @@ spec:
         postgresqlDatabase: coder
         postgresqlUsername: coder
         postgresqlPassword: changeme
-    fullNameOverride: coder-postgresql
+    fullnameOverride: coder-postgresql
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
